@@ -205,6 +205,12 @@
 #endif
 
 //////////////////////////////////////////////////////////////////////////////
+// Guided mode - control vehicle's position or angles from GCS
+#ifndef MODE_TEST_1017_ENABLED
+# define MODE_TEST_1017_ENABLED ENABLED
+#endif
+
+//////////////////////////////////////////////////////////////////////////////
 // GuidedNoGPS mode - control vehicle's angles from GCS
 #ifndef MODE_GUIDED_NOGPS_ENABLED
 # define MODE_GUIDED_NOGPS_ENABLED !HAL_MINIMIZE_FEATURES
@@ -479,7 +485,7 @@
  # define ROLL_PITCH_YAW_INPUT_MAX      4500        // roll, pitch and yaw input range
 #endif
 #ifndef DEFAULT_ANGLE_MAX
- # define DEFAULT_ANGLE_MAX         3000            // ANGLE_MAX parameters default value
+ # define DEFAULT_ANGLE_MAX         6000            // ANGLE_MAX parameters default value
 #endif
 
 //////////////////////////////////////////////////////////////////////////////

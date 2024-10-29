@@ -94,6 +94,28 @@ void Copter::Log_Write_EKF_POS()
     AP::ahrs().Log_Write();
 }
 
+//my openmv task log
+struct PACKED log_OpenMV {
+    LOG_PACKET_HEADER;
+    uint64_t time_us;
+    uint8_t cx;
+    uint8_t cy;
+};
+
+// Write an OpenMV packet
+void Copter::Log_Write_OpenMV()
+{
+    struct log_OpenMV pkt = {
+        LOG_PACKET_HEADER_INIT(LOG_OPENMV_MSG),
+        time_us         : AP_HAL::micros64(),
+        cx              : openmv.cx,
+        cy              : openmv.cy
+    };
+    logger.WriteCriticalBlock(&pkt, sizeof(pkt));
+}
+
+
+
 struct PACKED log_Data_Int16t {
     LOG_PACKET_HEADER;
     uint64_t time_us;
@@ -481,6 +503,9 @@ const struct LogStructure Copter::log_structure[] = {
       "DU32",  "QBI",         "TimeUS,Id,Value", "s--", "F--" },
     { LOG_DATA_FLOAT_MSG, sizeof(log_Data_Float),         
       "DFLT",  "QBf",         "TimeUS,Id,Value", "s--", "F--" },
+
+    { LOG_OPENMV_MSG, sizeof(log_OpenMV),
+      "OMV",   "QBB",   "TimeUS,cx,cy", "s--", "F--" },
     
 // @LoggerMessage: HELI
 // @Description: Helicopter related messages 

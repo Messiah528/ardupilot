@@ -4,7 +4,7 @@
 extern const AP_HAL::HAL& hal;
 
 // maximum velocities and accelerations
-#define WPNAV_WP_SPEED                 1000.0f      // default horizontal speed between waypoints in cm/s
+#define WPNAV_WP_SPEED                 2000.0f      // default horizontal speed between waypoints in cm/s
 #define WPNAV_WP_SPEED_MIN               20.0f      // minimum horizontal speed between waypoints in cm/s
 #define WPNAV_WP_RADIUS                 200.0f      // default waypoint radius in cm
 #define WPNAV_WP_RADIUS_MIN               5.0f      // minimum waypoint radius in cm
@@ -166,7 +166,7 @@ void AC_WPNav::wp_and_spline_init(float speed_cms, Vector3f stopping_point)
     _pos_control.init_xy_controller_stopping_point();
 
     // initialize the desired wp speed
-    _check_wp_speed_change = !is_positive(speed_cms);
+    //_check_wp_speed_change = !is_positive(speed_cms);
     _wp_desired_speed_xy_cms = is_positive(speed_cms) ? speed_cms : _wp_speed_cms;
     _wp_desired_speed_xy_cms = MAX(_wp_desired_speed_xy_cms, WPNAV_WP_SPEED_MIN);
 

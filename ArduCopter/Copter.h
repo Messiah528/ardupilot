@@ -72,6 +72,8 @@
 #include <AP_OpticalFlow/AP_OpticalFlow.h>
 #include <AP_Winch/AP_Winch_config.h>
 
+#include <AP_OpenMV/AP_OpenMV.h>
+
 // Configuration
 #include "defines.h"
 #include "config.h"
@@ -225,6 +227,7 @@ public:
     friend class ModeZigZag;
     friend class ModeAutorotate;
     friend class ModeTurtle;
+    friend class ModeTest_1017;
 
     Copter(void);
 
@@ -247,6 +250,8 @@ private:
     RC_Channel *channel_yaw;
 
     AP_Logger logger;
+
+    AP_OpenMV openmv{};
 
     // flight modes convenience array
     AP_Int8 *flight_modes;
@@ -697,6 +702,9 @@ private:
     bool get_wp_crosstrack_error_m(float &xtrack_error) const override;
     bool get_rate_ef_targets(Vector3f& rate_ef_targets) const override;
 
+    //my tasks function
+    void update_OpenMV(void);
+
     // Attitude.cpp
     void update_throttle_hover();
     float get_pilot_desired_climb_rate(float throttle_control);
@@ -822,6 +830,8 @@ private:
     void standby_update();
 
     // Log.cpp
+    void Log_Write_OpenMV();
+
     void Log_Write_Control_Tuning();
     void Log_Write_Attitude();
     void Log_Write_EKF_POS();
@@ -977,6 +987,9 @@ private:
 #endif
 #if MODE_GUIDED_ENABLED == ENABLED
     ModeGuided mode_guided;
+#endif
+#if MODE_TEST_1017_ENABLED == ENABLED
+    ModeTest_1017 mode_test_1017;
 #endif
     ModeLand mode_land;
 #if MODE_LOITER_ENABLED == ENABLED

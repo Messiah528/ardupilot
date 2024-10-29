@@ -69,6 +69,12 @@ Mode *Copter::mode_from_mode_num(const Mode::Number mode)
             break;
 #endif
 
+#if MODE_TEST_1017_ENABLED == ENABLED
+        case Mode::Number::TEST_1017:
+            ret = &mode_test_1017;
+            break;
+#endif
+
         case Mode::Number::LAND:
             ret = &mode_land;
             break;
